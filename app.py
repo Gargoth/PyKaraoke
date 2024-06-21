@@ -56,17 +56,18 @@ def add_song_to_queue(filename: str):
 
 
 def display_song(filename: str):
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.write(get_song_title(filename))
-    with col2:
-        st.button(
-            "RES",
-            key=f"reserve-{filename}-{uuid4()}",
-            type="primary",
-            on_click=add_song_to_queue,
-            args=(filename,),
-        )
+    with st.container():
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.write(get_song_title(filename))
+        with col2:
+            st.button(
+                "RES",
+                key=f"reserve-{filename}-{uuid4()}",
+                type="primary",
+                on_click=add_song_to_queue,
+                args=(filename,),
+            )
 
 
 # Main Content
@@ -113,24 +114,23 @@ with st.sidebar:
     # Queue Expander
     with st.expander(f"Queue ({len(st.session_state['song_queue'])})", expanded=True):
         if st.session_state["song_queue"]:
-            col1, col2, col3 = st.columns([1, 3, 1])
+            for i in range(len(st.session_state["song_queue"])):
+                with st.container():
+                    col1, col2, col3 = st.columns([1, 5, 1])
 
-            with col1:
-                for i in range(len(st.session_state["song_queue"])):
-                    st.write(f"[{i+1}]")
+                    with col1:
+                        st.write(f"[{i+1}]")
 
-            with col2:
-                for i in range(len(st.session_state["song_queue"])):
-                    st.write(f"{get_song_title(st.session_state['song_queue'][i])}")
+                    with col2:
+                        st.write(f"{get_song_title(st.session_state['song_queue'][i])}")
 
-            with col3:
-                for i in range(len(st.session_state["song_queue"])):
-                    st.button(
-                        "x",
-                        key=f"queue-{i}-{uuid4()}",
-                        type="secondary",
-                        on_click=st.session_state["song_queue"].pop,
-                        args=(i,),
-                    )
+                    with col3:
+                        st.button(
+                            "x",
+                            key=f"queue-{i}-{uuid4()}",
+                            type="secondary",
+                            on_click=st.session_state["song_queue"].pop,
+                            args=(i,),
+                        )
         else:
             st.write("No songs queued!")
