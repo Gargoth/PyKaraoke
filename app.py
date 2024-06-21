@@ -4,8 +4,19 @@ from os import listdir
 import logging
 from uuid import uuid4
 
+# Config Setup
+st.set_page_config(
+    page_title="PyKaraoke",
+    page_icon=None,
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        "Get Help": "https://github.com/Gargoth/PyKaraoke",
+        "Report a bug": "https://github.com/Gargoth/PyKaraoke/issues",
+        "About": "Simple video player with search and queuing function as initial Streamlit project",
+    },
+)
 logging.basicConfig(level=logging.DEBUG)
-
 
 # Constants
 media_path = "./media/"
