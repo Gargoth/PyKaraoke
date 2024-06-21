@@ -40,6 +40,7 @@ def get_song_title(filename: str) -> str:
 def create_video(filename: str):
     path = f"{media_path}/{filename}"
     st.video(path, autoplay=True)
+    logging.info("Video created")
 
 
 def next_song():
@@ -47,6 +48,7 @@ def next_song():
         st.session_state["current_song"] = st.session_state["song_queue"].pop(0)
     else:
         st.session_state["current_song"] = ""
+    logging.info(f"Current song: {st.session_state['current_song']}")
 
 
 def add_song_to_queue(filename: str):
